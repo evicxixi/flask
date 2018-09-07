@@ -1,0 +1,44 @@
+{% extends "loyout.html" %}
+{% block title %}Students{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        {% if msg %}
+            <div class="alert alert-danger" role="alert">
+              {{ msg }}
+            </div>
+        {% endif %}
+
+        <a class="nav-link" href="add/">
+            <button class="btn btn-sm btn-outline-success" type="button">添加学生</button>
+        </a>
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Age</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for k,v in student_dict.items() %}
+            <tr>
+              <th scope="row">{{ k }}</th>
+              <td>{{ v.name }}</td>
+              <td>{{ v.gender }}</td>
+              <td>{{ v.age }}</td>
+              <td>
+                <a href='edit/{{k}}'>编辑</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    <div class="col-3"></div>
+    
+</div>
+{% endblock %}

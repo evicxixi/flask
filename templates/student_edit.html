@@ -1,0 +1,85 @@
+{% extends "loyout.html" %}
+{% block title %}Students{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="card mt-2">
+            <div class="card-body">
+              <form method="POST">
+                {% if student %}
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">Name</label>
+                    <!-- <input type="text" class="invisible" value={{student.id}}> -->
+                    <input type="text" name='name' class="form-control" value={{student.name}}>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputPassword4">Age</label>
+                    <input type="text" name="age" class="form-control" value={{student.age}}>
+                  </div>
+                </div>
+                <fieldset class="form-group">
+                  <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+                    <div class="col-sm-10">
+                      {% for gender in ['female','male'] %}
+                        {% if gender==student.gender %}
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gender" value={{gender}} checked>
+                          <label class="form-check-label">
+                            {{gender}}
+                          </label>
+                        </div>
+                        {% else %}
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gender" value={{gender}}>
+                          <label class="form-check-label">
+                            {{gender}}
+                          </label>
+                        </div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                </fieldset>
+                {% else %}
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">Name</label>
+                    <input type="text" name='name' class="form-control" value=''>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Age</label>
+                    <input type="text" name="age" class="form-control" value=''>
+                  </div>
+                </div>
+                <fieldset class="form-group">
+                  <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+                    <div class="col-sm-10">
+                      {% for gender in ['female','male'] %}
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gender" value={{gender}}>
+                          <label class="form-check-label">
+                            {{gender}}
+                          </label>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </fieldset>
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Commit</button>
+              </form>
+            </div>
+            <div class="card-text">
+            </div>
+        </div>
+    </div>
+    <div class="col-3"></div>
+    
+</div>
+{% endblock %}

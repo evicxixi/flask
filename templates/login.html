@@ -1,0 +1,36 @@
+{% extends "loyout.html" %}
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="card mt-2">
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Username</label>
+                        <input type="text" name="username" class="form-control" placeholder="Enter username">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Password">
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </form>
+            </div>
+            <div class="card-text">
+                
+                {% if msg %}
+                    <div class="alert alert-danger m-2" role="alert">
+                      {{ msg }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-3"></div>
+    
+</div>
+{% endblock %}
