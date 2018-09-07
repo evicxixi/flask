@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, Markup, session
 import functools
 import pymysql
 from settings import Settings
-from sqlheapler import inquiry, insert
+from sqlhepler import inquiry, insert
 
 # PEP8
 app = Flask(__name__)  # 实例化flask对象

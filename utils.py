@@ -2,7 +2,7 @@ import pymysql
 from DBUtils.PooledDB import PooledDB
 from settings import Settings
 
-# 配置连接池：
+# 配置数据库连接池：
 POOL = PooledDB(
     creator=pymysql,
     host='127.0.0.1',

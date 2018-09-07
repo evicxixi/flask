@@ -1,7 +1,7 @@
 from utils import POOL
 import pymysql
 
-# 将pymysql的数据库连接封装（可选）
+# 将pymysql的数据库连接功能、查增改功能封装为函数（可选）
 
 
 def create_conn():
