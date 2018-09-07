@@ -24,19 +24,19 @@
                   <div class="row">
                     <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                     <div class="col-sm-10">
-                      {% for gender in ['female','male'] %}
-                        {% if gender==student.gender %}
+                      {% for gender in [(0,'female',),(1,'male',)] %}
+                        {% if gender.1==student.sex %}
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gender" value={{gender}} checked>
+                          <input class="form-check-input" type="radio" name="sex" value={{gender.0}} checked>
                           <label class="form-check-label">
-                            {{gender}}
+                            {{gender.1}}
                           </label>
                         </div>
                         {% else %}
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gender" value={{gender}}>
+                          <input class="form-check-input" type="radio" name="sex" value={{gender.0}}>
                           <label class="form-check-label">
-                            {{gender}}
+                            {{gender.1}}
                           </label>
                         </div>
                         {% endif %}
@@ -60,11 +60,11 @@
                   <div class="row">
                     <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                     <div class="col-sm-10">
-                      {% for gender in ['female','male'] %}
+                      {% for gender in [(0,'female',),(1,'male',)] %}
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="gender" value={{gender}}>
+                          <input class="form-check-input" type="radio" name="sex" value={{gender.0}}>
                           <label class="form-check-label">
-                            {{gender}}
+                            {{gender.1}}
                           </label>
                         </div>
                       {% endfor %}

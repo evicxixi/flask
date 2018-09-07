@@ -2,29 +2,26 @@ from flask import Flask, render_template, request, redirect, Markup, session
 import functools
 import pymysql
 from settings import Settings
-from settings import STUDENT_DICT
+from sqlheapler import inquiry, insert
 
 # PEP8
 app = Flask(__name__)  # 实例化flask对象
 app.secret_key = Settings.SECRET_KEY
 # app.DEBUG = True # 暂不起效
 
-conn = pymysql.connect(host='127.0.0.1', port=3306, user='root',
-                       password='', db=Settings.DB, charset='utf8')
-cursor = conn.cursor()
 
+def get_student_dict():
 
-def get_student_dict(cursor):
-
-    sql = 'select * from employee'
-    cursor.execute(sql)  # 使用execute()防止sql注入
-    student_set = cursor.fetchall()
+    sql = 'select * from user'
+    student_set = inquiry(sql, '', num='all')
+    print('student_set', student_set)
     student_dict = {}
     for student in student_set:
-        student_dict[student[0]] = {
-            'name': student[1],
-            'age': student[3],
-            'gender': student[2],
+        student_dict[student['id']] = {
+            'id': student['id'],
+            'name': student['name'],
+            'age': student['age'],
+            'sex': 'male' if student['sex'] == 1 else 'female',
         }
     return student_dict
 
@@ -60,7 +57,7 @@ def login():
 @app.route('/student/', methods=["POST", "GET"])
 def student():
     if request.method == 'GET':
-        student_dict = get_student_dict(cursor)
+        student_dict = get_student_dict()
         return render_template('student.html', student_dict=student_dict)
 
 
@@ -69,11 +66,12 @@ def student_add():
     if request.method == 'GET':
         return render_template('student_edit.html')
 
-    ret = (request.form.get('name'), int(request.form.get(
-        'age')), '0000-00-00')
-    # "insert into user(name,pwd,hire_date) values(%s,%s)"
-    sql = 'insert into employee(name,age,hire_date) values(%s,%s,%s)'
-    cursor.execute(sql, ret)
+    args = (request.form.get('name'), int(request.form.get(
+        'age')), int(request.form.get(
+            'gender')))
+    # print('args', args)
+    sql = 'insert into user(name,age,sex) values(%s,%s,%s)'
+    insert(sql, args)
     return redirect('/student')
 
 
@@ -81,14 +79,20 @@ def student_add():
 def student_edit(id):
     id = int(id)
     if request.method == 'GET':
-        student_dict = get_student_dict(cursor)
+        student_dict = get_student_dict()
         student = student_dict.get(id)
+        print('student', student)
         return render_template('student_edit.html', student=student)
 
-    ret = (request.form.get('name'), int(request.form.get(
-        'age')), id)
-    sql = 'update employee set name=%s,age=%s where id=%s'
-    cursor.execute(sql, ret)
+    args = (
+        request.form.get('name'),
+        int(request.form.get('age')),
+        int(request.form.get('sex')),
+        id)
+    print('args', args)
+
+    sql = 'update user set name=%s,age=%s,sex=%s where id=%s'
+    insert(sql, args)
     return redirect('/student')
 
 
